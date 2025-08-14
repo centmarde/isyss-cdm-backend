@@ -8,7 +8,7 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-// Enums
+// Enums for database modeling and type safety at the database/query level
 enum applicationStatus {
     draft
     submitted
