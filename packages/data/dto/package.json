@@ -1,0 +1,50 @@
+{
+  "name": "@isyss-cdm/dto",
+  "version": "1.0.0",
+  "description": "Shared Data Transfer Objects (DTOs) for ISySS CDM apps and services.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc -w -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "dto",
+    "shared",
+    "isyss-cdm"
+  ],
+  "author": "ISySS CDM Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "@isyss-cdm/enum": "workspace:*",
+    "@isyss-cdm/interface": "workspace:*",
+    "@nestjs/common": "^10.4.19",
+    "@nestjs/swagger": "^7.4.2",
+    "@types/express": "^5.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "@isyss-cdm/enum": "workspace:*",
+    "@isyss-cdm/interface": "workspace:*",
+    "@nestjs/common": "^10.4.19",
+    "@nestjs/swagger": "^7.4.2",
+    "@types/express": "^5.0.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

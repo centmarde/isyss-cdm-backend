@@ -1,0 +1,9 @@
+node_modules
+migrations
+generated
+.env
+dist
+secured-server/x-activity-logs
+secured-server/x-user-account
+secured-server
+.husky

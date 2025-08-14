@@ -1,0 +1,40 @@
+{
+  "name": "@isyss-cdm/utils",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc -w -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "utils",
+    "shared",
+    "isyss-cdm"
+  ],
+  "author": "ISySS CDM Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "@isyss-cdm/constants": "workspace:*",
+    "bcrypt": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "eslint": "^8.0.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "@isyss-cdm/constants": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,352 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// Enums
+enum applicationStatus {
+    draft
+    submitted
+    underReview
+    approved
+    rejected
+    expired
+    cancelled
+}
+
+enum licenseStatus {
+    active
+    expired
+    suspended
+    revoked
+    pending
+}
+
+enum documentStatus {
+    pending
+    approved
+    rejected
+}
+
+enum permitStatus {
+    active
+    expired
+    suspended
+    revoked
+}
+
+enum reviewStatus {
+    pending
+    inProgress
+    completed
+    rejected
+}
+
+// -----------------------------
+// Tables
+// -----------------------------
+
+model company {
+    id                     String   @id @default(uuid())
+    officeAddress          Json?
+    storageFacilityAddress Json?
+    storageFacilityContact String?
+    warehouseAddress       Json?
+    contactPerson          String?
+    createDate             DateTime @default(now())
+    updateDate             DateTime @updatedAt
+    createdByData          Json?
+
+    // One-to-Many: One company can have many contacts
+    contacts companyContact[]
+
+    @@map("company")
+}
+
+model companyContact {
+    id            String   @id @default(uuid())
+    type          String
+    lastName      String
+    firstName     String
+    middleInitial String?
+    nameExtension String?
+    designation   String?
+    homeAddress   Json?
+    contactNumber String?
+    email         String?
+    createDate    DateTime @default(now())
+    updateDate    DateTime @updatedAt
+    createdByData Json?
+    companyData   Json?
+
+    // Many-to-One: Many contacts belong to one company
+    companyId String
+    company   company @relation(fields: [companyId], references: [id])
+
+    // Many-to-One: Many contacts can belong to one application
+    applicationId String?
+    application   application? @relation(fields: [applicationId], references: [id])
+
+    @@map("company_contact")
+}
+
+model application {
+    id                 String   @id @default(uuid())
+    type               String
+    applicantType      String
+    dateOfApplication  DateTime
+    businessNature     String
+    createDate         DateTime @default(now())
+    updateDate         DateTime @updatedAt
+    fileConfigData     Json?
+    createdByData      Json?
+    applicantData      Json?
+    companyContactData Json?
+
+    companyContact      companyContact[]
+    applicationAction   applicationActionLog[]
+    applicationDocument applicationDocument[]
+    approvedDocuments   approvedDocument[]
+    permitApplication   permitApplication[]
+    licenseApplication  licenseApplication[]
+
+    @@map("application")
+}
+
+model licenseApplication {
+    id              String   @id @default(uuid())
+    type            String
+    sector          String
+    createDate      DateTime @default(now())
+    updateDate      DateTime @updatedAt
+    applicationData Json?
+
+    // Many-to-One: Many license applications belong to one application
+    applicationId String
+    application   application @relation(fields: [applicationId], references: [id])
+
+    // One-to-Many: One license application can have multiple chemical requests
+    requestChemicalLicenses requestChemicalLicense[]
+
+    // One-to-One: One license application issues exactly one license
+    license license?
+
+    @@map("license_application")
+}
+
+model requestChemicalLicense {
+    id                     String   @id @default(uuid())
+    chemicalName           String
+    quantityApplied        String
+    quantityRecommended    String
+    remarks                String
+    createDate             DateTime @default(now())
+    updateDate             DateTime @updatedAt
+    controlledChemicalData Json?
+    licenseApplicationData Json?
+
+    // Many-to-One: Many chemical requests belong to one license application
+    licenseApplicationId String
+    licenseApplication   licenseApplication @relation(fields: [licenseApplicationId], references: [id])
+
+    @@map("request_chemical_license")
+}
+
+model license {
+    id                     String        @id @default(uuid())
+    licenseNo              String        @unique
+    issuedDate             DateTime
+    expiryDate             DateTime
+    status                 licenseStatus @default(active)
+    createDate             DateTime      @default(now())
+    issuedBy               Json?
+    licenseApplicationData Json?
+    issuedByData           Json?
+
+    // One-to-One: One license belongs to one license application
+    licenseApplicationId String             @unique
+    licenseApplication   licenseApplication @relation(fields: [licenseApplicationId], references: [id])
+
+    // One-to-Many: One license can be referenced by many permit applications
+    permitApplications permitApplication[]
+
+    @@map("license")
+}
+
+model permitApplication {
+    id              String @id @default(uuid())
+    chemicalPurpose String
+    licenseData     Json?
+    applicationData Json?
+
+    // Many-to-One: Many permit applications belong to one application
+    applicationId String?
+    application   application? @relation(fields: [applicationId], references: [id])
+
+    // Many-to-One: Many permit applications can be tied to one license
+    licenseId String?
+    license   license? @relation(fields: [licenseId], references: [id])
+
+    // One-to-Many: Permit application can have many chemical authorities
+    reqChemicalAuthorities reqChemicalAuthority[]
+
+    // One-to-Many: Permit application can have many permits
+    permits permit[]
+
+    @@map("permit_application")
+}
+
+model reqChemicalAuthority {
+    id                     String   @id @default(uuid())
+    maxAllowedQuantity     Decimal
+    quantityApplied        Decimal
+    createDate             DateTime @default(now())
+    updateDate             DateTime @updatedAt
+    permitApplicationData  Json?
+    controlledChemicalData Json?
+
+    // Many-to-One: Many chemical authorities belong to one permit application
+    permitApplicationId String
+    permitApplication   permitApplication @relation(fields: [permitApplicationId], references: [id])
+
+    // One-to-Many: One chemical authority can have many evaluations
+    feoEvaluations feoEvaluation[]
+
+    @@map("req_chemical_authority")
+}
+
+model feoEvaluation {
+    id                        String   @id @default(uuid())
+    quantityAuthorized        Decimal
+    acquisition               Decimal
+    disposition               Decimal
+    balanceAsOfDate           DateTime
+    quantityRecommended       Decimal
+    totalStockOnHand          Decimal
+    createDate                DateTime @default(now())
+    updateDate                DateTime @updatedAt
+    reqChemaicalAuthorityData Json?
+
+    // Many-to-One: Many evaluations belong to one chemical authority
+    reqChemicalAuthorityId String
+    reqChemicalAuthority   reqChemicalAuthority @relation(fields: [reqChemicalAuthorityId], references: [id])
+
+    @@map("feo_evaluation")
+}
+
+model permit {
+    id                    String       @id @default(uuid())
+    permitNo              String       @unique
+    issuedDate            DateTime
+    expiryDate            DateTime
+    status                permitStatus @default(active)
+    createDate            DateTime     @default(now())
+    updateDate            DateTime     @updatedAt
+    permitApplicationData Json?
+    issuedByData          Json?
+
+    // One-to-One: One permit belongs to one permit application
+    permitApplicationId String?            @unique
+    permitApplication   permitApplication? @relation(fields: [permitApplicationId], references: [id])
+
+    @@map("permit")
+}
+
+model applicationActionLog {
+    id              String   @id @default(uuid())
+    type            String
+    action          String
+    stageFrom       String?
+    stageTo         String?
+    status          String
+    remarks         String?
+    createDate      DateTime @default(now())
+    createdByData   Json?
+    applicationData Json?
+
+    // Many-to-One: Many action logs belong to one application
+    applicationId String
+    application   application @relation(fields: [applicationId], references: [id])
+
+    @@map("application_action_log")
+}
+
+model applicationDocument {
+    id         String         @id @default(uuid())
+    status     documentStatus @default(pending)
+    remarks    String?
+    createDate DateTime       @default(now())
+    updateDate DateTime       @updatedAt
+
+    // Many-to-One: Many application documents belong to one application
+    applicationId String
+    application   application @relation(fields: [applicationId], references: [id])
+
+    // Many-to-One: Many application documents can refer to one document
+    documentId String
+    document   document @relation(fields: [documentId], references: [id])
+
+    // One-to-Many: One application document can have many review logs
+    reviewLogs documentReviewLog[]
+
+    @@map("application_document")
+}
+
+model document {
+    id            String   @id @default(uuid())
+    name          String
+    folderName    String?
+    fileName      String?
+    fileSize      Decimal?
+    fileType      String?
+    filePath      String?
+    driveUrl      String?
+    createDate    DateTime @default(now())
+    updateDate    DateTime @updatedAt
+    applicantData Json?
+
+    // One-to-Many: One document can be linked to many application documents
+    applicationDocuments applicationDocument[]
+
+    @@map("document")
+}
+
+model documentReviewLog {
+    id                      String   @id @default(uuid())
+    reviewedBy              String
+    result                  String
+    comments                String
+    createDate              DateTime @default(now())
+    applicationDocumentData Json?
+
+    // Many-to-One: Many review logs belong to one application document
+    applicationDocumentId String
+    applicationDocument   applicationDocument @relation(fields: [applicationDocumentId], references: [id])
+
+    @@map("document_review_log")
+}
+
+model approvedDocument {
+    id              String   @id @default(uuid())
+    name            String
+    folderName      String
+    fileName        String
+    fileType        String
+    filePath        String
+    fileSize        Decimal
+    driveUrl        String
+    createDate      DateTime @default(now())
+    updateDate      DateTime @updatedAt
+    applicationData Json?
+
+    // Many to to one
+    applicationId String?
+    application   application? @relation(fields: [applicationId], references: [id])
+
+    @@map("approved_document")
+}

@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": false,
+    "baseUrl": ".",
+    "paths": {
+      "@isyss-cdm/dto": ["packages/data/dto/src"],
+      "@isyss-cdm/enum": ["packages/data/enum/src"],
+      "@isyss-cdm/interface": ["packages/data/interface/src"],
+      "@isyss-cdm/constants": ["packages/data/constants/src"],
+      "@isyss-cdm/user-account-schema": [
+        "packages/data/schema/user-account/src"
+      ],
+      "@isyss-cdm/cache-schema": ["packages/data/schema/cache/src"],
+      "@isyss-cdm/system-schema": ["packages/data/schema/system/src"],
+      "@isyss-cdm/interceptor": ["packages/interceptor/src"],
+      "@isyss-cdm/middleware": ["packages/middleware/src"],
+      "@isyss-cdm/exception": ["packages/exception/src"],
+      "@isyss-cdm/utils": ["packages/utils/src"],
+      "@isyss-cdm/decorator": ["packages/decorator/src"],
+      "@isyss-cdm/server-boot": ["packages/server-boot/src"]
+    }
+  }
+}

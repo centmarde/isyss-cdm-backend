@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+  # --- ZOOKEEPER & KAFKA ---
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    ports:
+      - '2181:2181'
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - zookeeper
+    ports:
+      - '9092:9092'
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: ${KAFKA_ADVERTISED_LISTENER}
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+
+  # --- POSTGRES INSTANCES ---
+  postgres_user_account:
+    image: postgres:15
+    restart: always
+    container_name: pg_user_account
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_USER_ACCOUNT_DB}
+    volumes:
+      - pgdata_user_account:/var/lib/postgresql/data
+
+  postgres_licensing:
+    image: postgres:15
+    restart: always
+    container_name: pg_licensing
+    ports:
+      - '5434:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_LICENSING_DB}
+    volumes:
+      - pgdata_licensing:/var/lib/postgresql/data
+
+  # --- REDIS ---
+  redis:
+    image: redis:7
+    container_name: isyss-redis
+    restart: always
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+
+  # --- MONGODB FOR CACHING ---
+  mongo_cache:
+    image: mongo:6.0
+    container_name: mongo_cache
+    restart: always
+    ports:
+      - '27018:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_CACHE_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_CACHE_PASS}
+      MONGO_INITDB_DATABASE: ${MONGO_CACHE_DB}
+    volumes:
+      - mongo_data_cache:/data/db
+
+  # --- MONGODB FOR SYSTEM SETTINGS / CDM / INTERAGENCY / AI & GIS ---
+  mongo_system:
+    image: mongo:6.0
+    container_name: mongo_system
+    restart: always
+    ports:
+      - '27019:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_SYSTEM_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_SYSTEM_PASS}
+      MONGO_INITDB_DATABASE: ${MONGO_SYSTEM_DB}
+    volumes:
+      - mongo_data_system:/data/db
+
+volumes:
+  pgdata_user_account:
+  pgdata_licensing:
+  redis_data:
+  mongo_data_cache:
+  mongo_data_system:

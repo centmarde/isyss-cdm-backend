@@ -1,0 +1,161 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// * Enums
+enum DeviceStatus {
+    active
+    removed
+}
+
+enum UserStatus {
+    active
+    pending
+    verified
+    declined
+    inactive
+    deleted
+}
+
+enum SignatureStatus {
+    active
+    expired
+}
+
+// * Models
+model AdminUser {
+    id            String     @id @default(uuid())
+    email         String     @unique
+    username      String     @unique
+    password      String
+    firstName     String
+    lastName      String
+    middleInitial String?
+    address       Json?
+    contactNumber String     @unique
+    avatar        Json?
+    status        UserStatus @default(active)
+    role          Json?
+    createdBy     Json?
+    isLoggedIn    Boolean    @default(false)
+    salt          String
+    verified      Boolean    @default(false)
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
+
+    // 🔹 One-to-Many
+    setting   UserSetting[] // one user → many settings
+    signature UserSignature[] // one user → many signature
+    device    UserDevice[] // one user → many devices
+
+    @@map("admin_user")
+}
+
+model ApplicantUser {
+    id            String     @id @default(uuid())
+    email         String     @unique
+    username      String     @unique
+    password      String
+    firstName     String
+    lastName      String
+    middleInitial String?
+    address       Json?
+    contactNumber String     @unique
+    avatar        Json?
+    status        UserStatus @default(active)
+    role          Json?
+    company       Json?
+    createdBy     Json?
+    isLoggedIn    Boolean    @default(false)
+    salt          String
+    verified      Boolean    @default(false)
+    createdAt     DateTime   @default(now())
+    updatedAt     DateTime   @updatedAt
+
+    // 🔹 One-to-Many
+    setting   UserSetting[] // one user → many settings
+    signature UserSignature[] // one user → many signature
+    device    UserDevice[] // one user → many devices
+
+    @@map("applicant_user")
+}
+
+model UserSetting {
+    id            String   @id @default(uuid())
+    key           String
+    value         Json
+    effectiveFrom String
+    effectiveTo   String
+    createdBy     Json?
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+
+    // 🔹 Many-to-One: many settings belong to one user
+    admin   AdminUser @relation(fields: [adminId], references: [id])
+    adminId String
+
+    applicant   ApplicantUser @relation(fields: [applicantId], references: [id])
+    applicantId String
+
+    @@map("user_setting")
+}
+
+model UserSignature {
+    id            String          @id @default(uuid())
+    signatureType String
+    fileUrl       String
+    mimeType      String
+    fileHash      String
+    widthPx       Decimal
+    heightPx      Decimal
+    fileSize      Decimal
+    isDefault     Boolean
+    status        SignatureStatus @default(active)
+    metadata      Json?
+    createdBy     Json?
+    createdAt     DateTime        @default(now())
+    updatedAt     DateTime        @updatedAt
+
+    // 🔹 Many-to-One: many settings belong to one user
+    admin   AdminUser @relation(fields: [adminId], references: [id])
+    adminId String
+
+    applicant   ApplicantUser @relation(fields: [applicantId], references: [id])
+    applicantId String
+
+    @@map("user_signature")
+}
+
+model UserDevice {
+    id                String       @id @default(uuid())
+    deviceType        String
+    os                String
+    osVersion         String
+    manufacturer      String
+    model             String
+    modelVersion      String
+    uuid              String
+    registrationToken String?
+    ipAddress         String
+    source            String
+    browser           String
+    status            DeviceStatus @default(active)
+    verified          Boolean      @default(false)
+    createdAt         DateTime     @default(now())
+    updatedAt         DateTime     @updatedAt
+
+    // 🔹 Many-to-One: many sessions for one user
+    admin   AdminUser @relation(fields: [adminId], references: [id])
+    adminId String
+
+    applicant   ApplicantUser @relation(fields: [applicantId], references: [id])
+    applicantId String
+
+    @@map("user_device")
+}

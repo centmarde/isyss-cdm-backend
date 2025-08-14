@@ -1,0 +1,24 @@
+{
+  "directory": [
+    "packages/data/dto/src",
+    "packages/data/enum/src",
+    "packages/data/interface/src",
+    "packages/data/constants/src",
+    "packages/data/schema/cache/src",
+    "packages/data/schema/system/src",
+    "packages/interceptor/src",
+    "packages/middleware/src",
+    "packages/exception/src",
+    "packages/utils/src",
+    "packages/decorator/src",
+    "packages/server-boot/src",
+    "secured-server/activity-logs/libs/common/src",
+    "secured-server/security/libs/common/src",
+    "secured-server/user-account/libs/common/src",
+    "secured-server/cache/libs/common/src",
+    "secured-server/gateway/libs/common/src"
+  ],
+  "delete": true,
+  "location": "top",
+  "barrelName": "index.ts"
+}

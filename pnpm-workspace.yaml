@@ -1,0 +1,19 @@
+packages:
+  - 'secured-server/activity-logs'
+  - 'secured-server/cache'
+  - 'secured-server/gateway'
+  - 'secured-server/licensing'
+  - 'secured-server/security'
+  - 'secured-server/system-settings'
+  - 'secured-server/user-account'
+  - packages/*
+  - packages/data/*
+  - packages/data/schema/*
+onlyBuiltDependencies:
+  - '@nestjs/core'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - bcrypt
+  - prisma
+ignoredBuiltDependencies:
+  - esbuild

@@ -1,0 +1,40 @@
+{
+  "name": "@isyss-cdm/cache-schema",
+  "version": "1.0.0",
+  "description": "Shared Schema for Cache in ISySS CDM apps and services.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc -w -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "schema",
+    "cache",
+    "shared",
+    "isyss-cdm"
+  ],
+  "author": "ISySS CDM Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "mongoose": "^8.17.1",
+    "@isyss-cdm/enum": "workspace:*"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "mongoose": "^8.17.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

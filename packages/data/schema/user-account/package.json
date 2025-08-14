@@ -1,0 +1,51 @@
+{
+  "name": "@isyss-cdm/user-account-schema",
+  "version": "1.0.0",
+  "description": "Shared Schema for User Account in ISySS CDM apps and services.",
+  "main": "src/model/generated/index.js",
+  "types": "src/model/generated/index.d.ts",
+  "files": [
+    "src/model/generated"
+  ],
+  "scripts": {
+    "dev": "tsc -w -p tsconfig.json",
+    "build": "pnpm run clean && pnpm run generate",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "echo \"No tests yet\"",
+    "generate": "prisma generate --schema=src/model/schema.prisma",
+    "migrate:dev": "dotenv -e .env -- prisma migrate dev --schema=src/model/schema.prisma",
+    "migrate:deploy": "dotenv -e .env -- prisma migrate deploy --schema=src/model/schema.prisma",
+    "db:push": "dotenv -e .env -- prisma db push --schema=src/model/schema.prisma",
+    "reset": "npx prisma migrate reset --force",
+    "seed": "ts-node -r tsconfig-paths/register src/data/seed.ts"
+  },
+  "keywords": [
+    "schema",
+    "user-account",
+    "shared",
+    "isyss-cdm"
+  ],
+  "author": "ISySS CDM Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^6.11.1",
+    "bcrypt": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "cpx": "^1.5.0",
+    "dotenv-cli": "^10.0.0",
+    "eslint": "^8.0.0",
+    "prisma": "^6.11.1",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "@prisma/client": "^6.11.1",
+    "bcrypt": "^6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

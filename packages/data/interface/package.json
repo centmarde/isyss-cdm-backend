@@ -1,0 +1,42 @@
+{
+  "name": "@isyss-cdm/interface",
+  "version": "1.0.0",
+  "description": "Shared Interface for ISySS CDM apps and services.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsc -w -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist",
+    "lint": "eslint src --ext .ts,.tsx",
+    "test": "echo \"No tests yet\""
+  },
+  "keywords": [
+    "interface",
+    "shared",
+    "isyss-cdm"
+  ],
+  "author": "ISySS CDM Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "@isyss-cdm/enum": "workspace:*",
+    "@nestjs/common": "^10.4.19",
+    "@types/express": "^5.0.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "rimraf": "^5.0.0",
+    "typescript": "^5.4.0"
+  },
+  "peerDependencies": {
+    "@isyss-cdm/enum": "workspace:*",
+    "@nestjs/common": "^11.1.5",
+    "@types/express": "^5.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

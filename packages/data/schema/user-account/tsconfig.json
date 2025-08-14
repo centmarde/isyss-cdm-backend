@@ -1,0 +1,13 @@
+{
+  "extends": "../../../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": true, // good for project references in a monorepo
+    "declaration": true, // generates .d.ts files
+    "declarationMap": true, // helpful for editor navigation
+    "sourceMap": true
+  },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules", "**/*.test.ts"]
+}
