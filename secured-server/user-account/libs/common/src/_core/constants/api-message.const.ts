@@ -1,0 +1,139 @@
+import { ICustomApiError } from '@isyss-cdm/interface';
+
+export const apiMessage: Record<string, ICustomApiError> = {
+  // * Success 200
+  '000000': {
+    code: '000000',
+    statusCode: 200,
+    message: 'Ok',
+  },
+
+  // * BadRequestException 400
+  USERACC4000001: {
+    code: 'USERACC4000001',
+    statusCode: 400,
+    message: 'User is forbidden to access this resource.',
+  },
+  USERACC4000002: {
+    code: 'USERACC4000002',
+    statusCode: 400,
+    message: 'Invalid current user password.',
+  },
+  USERACC4000003: {
+    code: 'USERACC4000003',
+    statusCode: 400,
+    message: 'New password and old password should not match.',
+  },
+  USERACC4000004: {
+    code: 'USERACC4000004',
+    statusCode: 400,
+    message: 'Password is too weak.',
+  },
+  USERACC4000005: {
+    code: 'USERACC4000005',
+    statusCode: 400,
+    message: 'Data already exists.',
+  },
+  USERACC4000006: {
+    code: 'USERACC4000006',
+    statusCode: 400,
+    message: '', // for validation pipes
+  },
+
+  // * NotFoundException 404
+  USERACC4040001: {
+    code: 'USERACC4040001',
+    statusCode: 404,
+    message: 'Data not found.',
+  },
+  USERACC4040002: {
+    code: 'USERACC4040002',
+    statusCode: 404,
+    message: 'User not found.',
+  },
+
+  // * UnauthorizedException 401
+  USERACC4010001: {
+    code: 'USERACC4010001',
+    statusCode: 401,
+    message: 'User not authenticated.',
+  },
+  USERACC4010002: {
+    code: 'USERACC4010002',
+    statusCode: 401,
+    message: 'Invalid credentials.',
+  },
+
+  // * ForbiddenException 403
+  USERACC4030001: {
+    code: 'USERACC4030001',
+    statusCode: 403,
+    message: 'Your account does not have a permission to do this action.',
+  },
+  USERACC4030002: {
+    code: 'USERACC4030002',
+    statusCode: 403,
+    message: 'Invalid environment.',
+  },
+  USERACC4030003: {
+    code: 'USERACC4030003',
+    statusCode: 403,
+    message:
+      'You have been logged out due to your simultaneous activity on the other device.',
+  },
+  USERACC4030004: {
+    code: 'USERACC4030004',
+    statusCode: 403,
+    message: 'Your session has expired.',
+  },
+  USERACC4030005: {
+    code: 'USERACC4030005',
+    statusCode: 403,
+    message: 'The user has been deleted and cannot perform this action.',
+  },
+  USERACC4030006: {
+    code: 'USERACC4030006',
+    statusCode: 403,
+    message: 'Access denied. Your IP address is not whitelisted.',
+  },
+  USERACC4030007: {
+    code: 'USERACC4030007',
+    statusCode: 403,
+    message: 'Client IP address could not be determined.',
+  },
+
+  // * ConflictException 409
+  USERACC4090001: {
+    code: 'USERACC4090001',
+    statusCode: 409,
+    message: '',
+  },
+
+  // * UnprocessableEntityException 422
+  USERACC4220001: {
+    code: 'USERACC4220001',
+    statusCode: 422,
+    message: '',
+  },
+
+  // * InternalServerErrorException 500
+  USERACC5000001: {
+    code: 'USERACC5000001',
+    statusCode: 500,
+    message: 'Server encountered an error. Please contact the developer',
+  },
+
+  // * ServiceUnavailableException 503
+  USERACC5030001: {
+    code: 'USERACC5030001',
+    statusCode: 503,
+    message: 'Service unavailable.',
+  },
+
+  // * Unknown
+  xxxx: {
+    code: 'xxxx',
+    statusCode: 404,
+    message: 'No code found.',
+  },
+};

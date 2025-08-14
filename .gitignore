@@ -5,5 +5,5 @@ generated
 dist
 secured-server/x-activity-logs
 secured-server/x-user-account
-secured-server
+
 .husky
