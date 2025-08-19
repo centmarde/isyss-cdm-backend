@@ -354,6 +354,25 @@ model approvedDocument {
 // **
 // ** MCR SERVICES SCHEMA
 // **
+model consumptionReport {
+    id              String   @id @default(uuid())
+    yearMonthReport String
+    submittedDate   DateTime
+    status          String
+    remarks         String?
+    createDate      DateTime @default(now())
+    updateDate      DateTime @updatedAt
+    createdByData   Json?
+    licenseData     Json?
+
+    // One to Many
+    MCRdocuments MCRdocument[]
+    Penalty      Penalty[]
+    Tracker      Tracker[]
+    Inventory    Inventory[]
+
+    @@map("consumption_report")
+}
 
 model MCRdocument {
     id             String   @id @default(uuid())
@@ -370,24 +389,68 @@ model MCRdocument {
     reportId String?
 
     // Many to One
+    consumptionReport   consumptionReport? @relation(fields: [consumptionReportId], references: [id])
+    consumptionReportId String?
 
     @@map("MCRdocument")
 }
 
-model consumptionReport {
-    id              String   @id @default(uuid())
-    yearMonthReport String
-    submittedDate   DateTime
-    status          String
-    remarks         String?
-    createDate      DateTime @default(now())
-    updateDate      DateTime @updatedAt
-    createdByData   Json?
-    licenseData     Json?
+model Penalty {
+    id            String   @id @default(uuid())
+    daysLate      Decimal
+    penaltyRate   Decimal
+    penaltyAmount Decimal
+    totalDue      String
+    isLocked      String   @default("false")
+    createDate    DateTime @default(now())
+    updateDate    DateTime @updatedAt
+    reportData    Json?
 
-    // One to Many
-    MCRdocuments   MCRdocument[]
-    Penalty        Penalty[]
-    Tracker        Tracker[]
-    Inventory      Inventory[]
+    // Many to One
+    reportId            String?
+    consumptionReport   consumptionReport? @relation(fields: [consumptionReportId], references: [id])
+    consumptionReportId String?
+
+    @@map("penalty")
+}
+
+model Tracker {
+    id         String   @id @default(uuid())
+    action     String
+    stagedFrom String
+    stagedTo   String
+    remarks    String
+    createDate DateTime @default(now())
+    reportData Json?
+
+    // Many to One
+    reportId            String?
+    consumptionReport   consumptionReport? @relation(fields: [consumptionReportId], references: [id])
+    consumptionReportId String?
+
+    @@map("tracker")
+}
+
+model Inventory {
+    id                String   @id @default(uuid())
+    chemicalName      String
+    beginningBalance  Decimal
+    quantityAcquired  Decimal
+    quantityUsed      Decimal
+    quantityDisposed  Decimal
+    endingBalance     Decimal
+    acquisitionRefNo  Decimal
+    supplierName      String
+    supplierAddress   Json?
+    authorityPermitNo String
+    createDate        DateTime @default(now())
+    updateDate        DateTime @updatedAt
+    reportData        Json?
+
+    // Many to One
+    reportId            String?
+    consumptionReport   consumptionReport? @relation(fields: [consumptionReportId], references: [id])
+    consumptionReportId String?
+
+    @@map("inventory")
 }
