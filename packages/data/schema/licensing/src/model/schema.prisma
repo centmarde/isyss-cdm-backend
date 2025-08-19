@@ -289,7 +289,7 @@ model applicationDocument {
 
     // Many-to-One: Many application documents can refer to one document
     documentId String
-    document   document @relation(fields: [documentId], references: [id])
+    document   licensingDocument @relation(fields: [documentId], references: [id])
 
     // One-to-Many: One application document can have many review logs
     reviewLogs documentReviewLog[]
@@ -297,7 +297,7 @@ model applicationDocument {
     @@map("application_document")
 }
 
-model document {
+model licensingDocument {
     id            String   @id @default(uuid())
     name          String
     folderName    String?
@@ -349,4 +349,45 @@ model approvedDocument {
     application   application? @relation(fields: [applicationId], references: [id])
 
     @@map("approved_document")
+}
+
+// **
+// ** MCR SERVICES SCHEMA
+// **
+
+model MCRdocument {
+    id             String   @id @default(uuid())
+    fileType       String
+    validityDate   DateTime
+    uploadDate     DateTime
+    status         String?
+    remarks        String?
+    createDate     DateTime @default(now())
+    updateDate     DateTime @updatedAt
+    reportData     Json?
+    fileConfigData Json?
+
+    reportId String?
+
+    // Many to One
+
+    @@map("MCRdocument")
+}
+
+model consumptionReport {
+    id              String   @id @default(uuid())
+    yearMonthReport String
+    submittedDate   DateTime
+    status          String
+    remarks         String?
+    createDate      DateTime @default(now())
+    updateDate      DateTime @updatedAt
+    createdByData   Json?
+    licenseData     Json?
+
+    // One to Many
+    MCRdocuments   MCRdocument[]
+    Penalty        Penalty[]
+    Tracker        Tracker[]
+    Inventory      Inventory[]
 }
