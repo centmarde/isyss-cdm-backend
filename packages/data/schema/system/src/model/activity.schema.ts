@@ -1,5 +1,4 @@
 //@ts-ignore
-
 import { ActivityStatus, UserType } from '@isyss-cdm/enum';
 import { Document, Schema } from 'mongoose';
 
