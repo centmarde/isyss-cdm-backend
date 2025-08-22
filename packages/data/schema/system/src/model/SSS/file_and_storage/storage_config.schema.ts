@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IStorageConfig } from './file_and_storage.interfaces';
+import { IStorageConfig } from './interface';
 import { randomUUID } from 'crypto';
 
 const StorageConfigSchema = new Schema<IStorageConfig>(
