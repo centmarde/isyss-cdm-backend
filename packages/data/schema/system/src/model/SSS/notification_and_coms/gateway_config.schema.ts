@@ -21,6 +21,15 @@ export const GatewayConfigSchema = new Schema<IGatewayConfig>(
   { collection: 'gatewayConfig' }
 );
 
+// Indexes
+GatewayConfigSchema.index({ uuid: 1 }, { unique: true });
+GatewayConfigSchema.index({ type: 1 });
+GatewayConfigSchema.index({ provider: 1 });
+GatewayConfigSchema.index({ status: 1 });
+GatewayConfigSchema.index({ createDate: 1 });
+GatewayConfigSchema.index({ type: 1, provider: 1 });
+GatewayConfigSchema.index({ provider: 1, status: 1 });
+
 // Hooks
 GatewayConfigSchema.pre('save', function (this: IGatewayConfig, next: (err?: any) => void) {
   this.updateDate = new Date();

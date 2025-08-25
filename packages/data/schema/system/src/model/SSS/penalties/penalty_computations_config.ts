@@ -27,6 +27,17 @@ const PenaltyComputationConfigSchema = new Schema<IPenaltyComputationConfig>(
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
+// Indexes
+PenaltyComputationConfigSchema.index({ uuid: 1 }, { unique: true });
+PenaltyComputationConfigSchema.index({ env: 1 });
+PenaltyComputationConfigSchema.index({ lockThresholdDays: 1 });
+PenaltyComputationConfigSchema.index({ allowGracePeriod: 1 });
+PenaltyComputationConfigSchema.index({ auditTrailEnabled: 1 });
+PenaltyComputationConfigSchema.index({ feesConfigId: 1 });
+PenaltyComputationConfigSchema.index({ penaltyConfigId: 1 });
+PenaltyComputationConfigSchema.index({ createdAt: 1 });
+PenaltyComputationConfigSchema.index({ env: 1, allowGracePeriod: 1 });
+
 export const PenaltyComputationConfigModel = model<IPenaltyComputationConfig>(
   'PenaltyComputationConfig',
   PenaltyComputationConfigSchema

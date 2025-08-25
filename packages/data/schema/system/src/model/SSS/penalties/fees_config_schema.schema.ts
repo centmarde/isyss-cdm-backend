@@ -12,6 +12,13 @@ const FeesConfigSchema = new Schema<IFeesConfig>(
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
+// Indexes
+FeesConfigSchema.index({ uuid: 1 }, { unique: true });
+FeesConfigSchema.index({ licenseType: 1 });
+FeesConfigSchema.index({ baseFee: 1 });
+FeesConfigSchema.index({ createdAt: 1 });
+FeesConfigSchema.index({ licenseType: 1, baseFee: 1 });
+
 export const FeesConfigModel = model<IFeesConfig>('FeesConfig', FeesConfigSchema);
 
 export default FeesConfigModel;

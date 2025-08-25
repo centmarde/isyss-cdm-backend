@@ -25,6 +25,11 @@ const InteragencySchema = new Schema<IInteragencyConfig>(
 
 // unique index on agencyCode where present (sparse) to avoid collisions for documents without the field
 InteragencySchema.index({ agencyCode: 1 }, { unique: true, sparse: true });
+InteragencySchema.index({ status: 1 });
+InteragencySchema.index({ lastSynced: 1 });
+InteragencySchema.index({ createDate: 1 });
+InteragencySchema.index({ agencyName: 1 });
+InteragencySchema.index({ status: 1, agencyCode: 1 });
 
 export const InteragencyModel = model<IInteragencyConfig>('InteragencyConfig', InteragencySchema);
 

@@ -1,1 +1,0 @@
-Concrete JSON types for TypeScript usage (no `any`, `unknown`, or explicit `undefined`)

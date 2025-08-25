@@ -21,6 +21,13 @@ export const NotificationConfigSchema = new Schema<INotificationConfig>(
   { collection: 'notificationConfig' }
 );
 
+// Indexes
+NotificationConfigSchema.index({ uuid: 1 }, { unique: true });
+NotificationConfigSchema.index({ templateKey: 1 });
+NotificationConfigSchema.index({ status: 1 });
+NotificationConfigSchema.index({ createDate: 1 });
+NotificationConfigSchema.index({ templateKey: 1, status: 1 });
+
 // Hooks
 NotificationConfigSchema.pre('save', function (this: INotificationConfig, next: (err?: any) => void) {
   this.updateDate = new Date();

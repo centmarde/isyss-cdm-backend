@@ -13,6 +13,13 @@ const PenaltyConfigSchema = new Schema<IPenaltyConfig>(
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
+// Indexes
+PenaltyConfigSchema.index({ uuid: 1 }, { unique: true });
+PenaltyConfigSchema.index({ licenseType: 1 });
+PenaltyConfigSchema.index({ lockThreshold: 1 });
+PenaltyConfigSchema.index({ createdAt: 1 });
+PenaltyConfigSchema.index({ licenseType: 1, lockThreshold: 1 });
+
 export const PenaltyConfigModel = model<IPenaltyConfig>('PenaltyConfig', PenaltyConfigSchema);
 
 export default PenaltyConfigModel;

@@ -29,6 +29,13 @@ const FileConfigSchema = new Schema<IFileConfig>(
 );
 
 FileConfigSchema.index({ uuid: 1 }, { unique: true });
+FileConfigSchema.index({ templateKey: 1 });
+FileConfigSchema.index({ templateType: 1 });
+FileConfigSchema.index({ status: 1 });
+FileConfigSchema.index({ name: 1 });
+FileConfigSchema.index({ templateEngine: 1 });
+FileConfigSchema.index({ createDate: 1 });
+FileConfigSchema.index({ templateType: 1, status: 1 });
 
 export const FileConfigModel =
     (mongoose.models.FileConfig as mongoose.Model<IFileConfig>) ||

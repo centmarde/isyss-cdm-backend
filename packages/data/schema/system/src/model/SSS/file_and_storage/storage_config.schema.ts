@@ -24,6 +24,12 @@ const StorageConfigSchema = new Schema<IStorageConfig>(
 );
 
 StorageConfigSchema.index({ uuid: 1 }, { unique: true });
+StorageConfigSchema.index({ provider: 1 });
+StorageConfigSchema.index({ bucket: 1 });
+StorageConfigSchema.index({ region: 1 });
+StorageConfigSchema.index({ publicAccess: 1 });
+StorageConfigSchema.index({ provider: 1, bucket: 1 });
+StorageConfigSchema.index({ createDate: 1 });
 
 export const StorageConfigModel =
     (mongoose.models.StorageConfig as mongoose.Model<IStorageConfig>) ||
