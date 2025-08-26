@@ -1,6 +1,28 @@
 //@ts-ignore
 import { Schema, model } from 'mongoose';
-import { IPenaltyComputationConfig } from './interface';
+//import { IPenaltyComputationConfig } from './interface';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
+import { IFeesConfig } from './fees_config_schema.schema';
+import { IPenaltyConfig } from './penalty_config.schema';
+
+export interface IPenaltyComputationConfig extends Document {
+  id: string;
+  env?: string;
+  rounding?: Record<string, unknown>;
+  validation?: Record<string, unknown>;
+  defaultStatus?: Record<string, unknown>;
+  lockThresholdDays?: number;
+  allowGracePeriod?: boolean;
+  gracePeriodDays?: number;
+  fallbackPenaltyRate?: number;
+  auditTrailEnabled?: boolean;
+  logComputationDetails?: boolean;
+  feesConfig?: IFeesConfig; 
+  penaltyConfig?: IPenaltyConfig; 
+  createdBy?: ICreatedByAdmin;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
 
 const PenaltyComputationConfigSchema = new Schema<IPenaltyComputationConfig>(
   {
@@ -17,10 +39,10 @@ const PenaltyComputationConfigSchema = new Schema<IPenaltyComputationConfig>(
     logComputationDetails: { type: Boolean, default: false },
 
     // Relations (store ObjectId references and optional embedded snapshot)
-    feesConfigId: { type: Schema.Types.ObjectId, ref: 'FeesConfig' },
-    penaltyConfigId: { type: Schema.Types.ObjectId, ref: 'PenaltyConfig' },
-    feesConfig: { type: Schema.Types.Mixed },
-    penaltyConfig: { type: Schema.Types.Mixed },
+    // feesConfigId: { type: Schema.Types.ObjectId, ref: 'FeesConfig' },
+    // penaltyConfigId: { type: Schema.Types.ObjectId, ref: 'PenaltyConfig' },
+    // feesConfig: { type: Schema.Types.Mixed },
+    // penaltyConfig: { type: Schema.Types.Mixed },
 
     createdBy: { type: Schema.Types.Mixed },
   },
@@ -33,8 +55,8 @@ PenaltyComputationConfigSchema.index({ env: 1 });
 PenaltyComputationConfigSchema.index({ lockThresholdDays: 1 });
 PenaltyComputationConfigSchema.index({ allowGracePeriod: 1 });
 PenaltyComputationConfigSchema.index({ auditTrailEnabled: 1 });
-PenaltyComputationConfigSchema.index({ feesConfigId: 1 });
-PenaltyComputationConfigSchema.index({ penaltyConfigId: 1 });
+//PenaltyComputationConfigSchema.index({ feesConfigId: 1 });
+//PenaltyComputationConfigSchema.index({ penaltyConfigId: 1 });
 PenaltyComputationConfigSchema.index({ createdAt: 1 });
 PenaltyComputationConfigSchema.index({ env: 1, allowGracePeriod: 1 });
 
