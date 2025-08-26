@@ -1,12 +1,7 @@
 import { Document } from 'mongoose';
 
 // Concrete JSON types for TypeScript usage (no `any`, `unknown`, or explicit `undefined`)
-export type JSONPrimitive = string | number | boolean | null;
-export type JSONValue = JSONPrimitive | JSONObject | JSONArray;
-export interface JSONObject {
-    [key: string]: JSONValue;
-}
-export interface JSONArray extends Array<JSONValue> {}
+
 
 interface ICreatedByAdmin {
     id: string;
@@ -15,7 +10,7 @@ interface ICreatedByAdmin {
     email: string;
     username: string;
     role: string;
-    [key: string]: JSONValue;
+   
 }
 
 export interface IFileConfig extends Document {
@@ -26,15 +21,15 @@ export interface IFileConfig extends Document {
     templateType: string;
     templateEngine: string;
     templateSource: boolean;
-    placeholders?: JSONObject;
-    outputConfig?: JSONObject;
-    accessControl?: JSONObject;
-    checklist?: JSONArray;
-    approvers?: JSONArray;
+    placeholders?: Record<string, unknown>;
+    outputConfig?: Record<string, unknown>;
+    accessControl?: Record<string, unknown>;
+    checklist?: Array<Record<string, unknown>>;
+    approvers?: Array<Record<string, unknown>>;
     status?: string;
-    details?: JSONObject;
-    createDate?: Date;
-    updateDate?: Date;
+    details?: Record<string, unknown>;
+    createdAt?: Date;
+    updatedAt?: Date;
     createdBy?: ICreatedByAdmin;
     
 }
@@ -48,10 +43,10 @@ export interface IStorageConfig extends Document {
     uploadLimitMB?: number;
     expirationDays?: number;
     publicAccess?: boolean;
-    createDate?: Date;
-    updateDate?: Date;
-    createdBy?: JSONObject;
+    createdAt?: Date;
+    updatedAt?: Date;
+    createdBy?: ICreatedByAdmin;
     // additional free-form JSON for provider specific config
-    config?: JSONObject;
+    //config?: JSONObject;
 }
 
