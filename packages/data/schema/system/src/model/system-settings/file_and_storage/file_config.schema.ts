@@ -19,11 +19,11 @@ const FileConfigSchema = new Schema<IFileConfig>(
         status: { type: String, trim: true },
         details: { type: Schema.Types.Mixed, default: {} },
         createdBy: { type: Schema.Types.Mixed, default: {} },
-        createDate: { type: Date, default: Date.now },
-        updateDate: { type: Date, default: Date.now },
+        createdAt: { type: Date, default: Date.now },
+        updatedAt: { type: Date, default: Date.now },
     },
     {
-        timestamps: { createdAt: 'createDate', updatedAt: 'updateDate' },
+        timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
         collection: 'fileConfig',
     }
 );

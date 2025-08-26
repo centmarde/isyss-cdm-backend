@@ -8,14 +8,24 @@ export interface JSONObject {
 }
 export interface JSONArray extends Array<JSONValue> {}
 
+interface ICreatedByAdmin {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    username: string;
+    role: string;
+    [key: string]: JSONValue;
+}
+
 export interface IFileConfig extends Document {
-    uuid: string;
-    templateKey?: string;
-    name?: string;
-    description?: string;
-    templateType?: string;
-    templateEngine?: string;
-    templateSource?: boolean;
+    id: string;
+    templateKey: string;
+    name: string;
+    description: string;
+    templateType: string;
+    templateEngine: string;
+    templateSource: boolean;
     placeholders?: JSONObject;
     outputConfig?: JSONObject;
     accessControl?: JSONObject;
@@ -25,7 +35,7 @@ export interface IFileConfig extends Document {
     details?: JSONObject;
     createDate?: Date;
     updateDate?: Date;
-    createdBy?: JSONObject;
+    createdBy?: ICreatedByAdmin;
     
 }
 
