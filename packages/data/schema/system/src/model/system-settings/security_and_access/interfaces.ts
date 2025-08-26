@@ -1,65 +1,58 @@
 //@ts-ignore
 import mongoose, { Document } from 'mongoose';
-
-// Concrete JSON types for TypeScript usage (no `any`, `unknown`, or explicit `undefined`)
-export type JSONPrimitive = string | number | boolean | null;
-export type JSONValue = JSONPrimitive | JSONObject | JSONArray;
-export interface JSONObject {
-    [key: string]: JSONValue;
-}
-export interface JSONArray extends Array<JSONValue> {}
+import { ICreatedByAdmin } from '../file_and_storage/interface';
 
 export interface IPermission {
-	uuid?: string;
+	id?: string;
 	module?: string;
 	baseUrl?: string;
 	endpoint?: string;
 	method?: string;
 	permission?: string;
 	description?: string;
-	createDate?: Date;
-	updateDate?: Date;
-	createdBy?: mongoose.Types.ObjectId;
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
 }
 
 export interface IRole {
-	uuid?: string;
+	id?: string;
 	code: string;
 	displayName?: string;
 	description?: string;
-	createDate?: Date;
-	updateDate?: Date;
+	createdAt?: Date;
+	updatedAt?: Date;
 	permissions?: mongoose.Types.ObjectId[]; // references to Permission docs
-	permissionsMeta?: JSONObject; // jsonb-like metadata
-	createdBy?: mongoose.Types.ObjectId;
+	permissionsMeta?: Record<string, unknown>; // jsonb-like metadata
+	createdBy?: ICreatedByAdmin;
 }
 
 export interface IWhitelist {
-	uuid?: string;
+	id?: string;
 	type?: string;
 	value?: string;
 	label?: string;
 	env?: string;
 	expiresAt?: Date;
 	status?: string;
-	createDate?: Date;
-	updateDate?: Date;
-	createdBy?: mongoose.Types.ObjectId;
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
 }
 
 export interface ISecurityConfig {
-	uuid?: string;
+	id?: string;
 	env?: string;
-	rateLimiting?: JSONObject;
-	mfa?: JSONObject;
-	passwordPolicy?: JSONObject;
-	rbac?: JSONObject;
-	ipControls?: JSONObject;
-	tokenPolicy?: JSONObject;
-	auditLogging?: JSONObject;
-	createDate?: Date;
-	updateDate?: Date;
-	createdBy?: mongoose.Types.ObjectId;
+	rateLimiting?: Record<string, unknown>;
+	mfa?: Record<string, unknown>;
+	passwordPolicy?: Record<string, unknown>;
+	rbac?: Record<string, unknown>;
+	ipControls?: Record<string, unknown>;
+	tokenPolicy?: Record<string, unknown>;
+	auditLogging?: Record<string, unknown>;
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
 }
 
 export type PermissionDocument = IPermission & Document;

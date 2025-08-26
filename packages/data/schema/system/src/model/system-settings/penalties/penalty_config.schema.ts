@@ -4,17 +4,17 @@ import { IPenaltyConfig } from './interface';
 
 const PenaltyConfigSchema = new Schema<IPenaltyConfig>(
   {
-    uuid: { type: String, required: true, unique: true, index: true },
+    id: { type: String, required: true, unique: true, index: true },
     licenseType: { type: String },
     tiers: { type: Schema.Types.Mixed },
     lockThreshold: { type: Number },
-    createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+    createdBy: { type: Schema.Types.Mixed },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
 // Indexes
-PenaltyConfigSchema.index({ uuid: 1 }, { unique: true });
+PenaltyConfigSchema.index({ id: 1 }, { unique: true });
 PenaltyConfigSchema.index({ licenseType: 1 });
 PenaltyConfigSchema.index({ lockThreshold: 1 });
 PenaltyConfigSchema.index({ createdAt: 1 });

@@ -1,10 +1,31 @@
-import mongoose, { Schema } from 'mongoose';
-import { IFileConfig } from './interface';
+import mongoose, { Schema, Document } from 'mongoose';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
 import { randomUUID } from 'crypto';
+
+export interface IFileConfig extends Document {
+    id: string;
+    templateKey: string;
+    name: string;
+    description: string;
+    templateType: string;
+    templateEngine: string;
+    templateSource: boolean;
+    placeholders?: Record<string, unknown>;
+    outputConfig?: Record<string, unknown>;
+    accessControl?: Record<string, unknown>;
+    checklist?: Array<Record<string, unknown>>;
+    approvers?: Array<Record<string, unknown>>;
+    status?: string;
+    details?: Record<string, unknown>;
+    createdAt?: Date;
+    updatedAt?: Date;
+    createdBy?: ICreatedByAdmin;
+    
+}
 
 const FileConfigSchema = new Schema<IFileConfig>(
     {
-        uuid: { type: String, required: true, unique: true, default: () => randomUUID() },
+        id: { type: String, required: true, unique: true, default: () => randomUUID() },
         templateKey: { type: String, trim: true },
         name: { type: String, trim: true },
         description: { type: String },
@@ -28,13 +49,13 @@ const FileConfigSchema = new Schema<IFileConfig>(
     }
 );
 
-FileConfigSchema.index({ uuid: 1 }, { unique: true });
+FileConfigSchema.index({ id: 1 }, { unique: true });
 FileConfigSchema.index({ templateKey: 1 });
 FileConfigSchema.index({ templateType: 1 });
 FileConfigSchema.index({ status: 1 });
 FileConfigSchema.index({ name: 1 });
 FileConfigSchema.index({ templateEngine: 1 });
-FileConfigSchema.index({ createDate: 1 });
+FileConfigSchema.index({ createdAt: 1 });
 FileConfigSchema.index({ templateType: 1, status: 1 });
 
 export const FileConfigModel =
@@ -42,4 +63,3 @@ export const FileConfigModel =
     mongoose.model<IFileConfig>('FileConfig', FileConfigSchema);
 
 export default FileConfigModel;
-

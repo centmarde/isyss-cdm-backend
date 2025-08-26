@@ -1,39 +1,32 @@
-
 import { Document, Types } from 'mongoose';
+import { ICreatedByAdmin } from '../file_and_storage/interface';
 
-
-// Concrete JSON types for TypeScript usage (no `any`, `unknown`, or explicit `undefined`)
-export type JSONPrimitive = string | number | boolean | null;
-export type JSONValue = JSONPrimitive | JSONObject | JSONArray;
-export interface JSONObject {
-    [key: string]: JSONValue;
-}
 // Interfaces
 export interface IPenaltyConfig extends Document {
-  uuid: string;
+  id: string;
   licenseType?: string;
-  tiers?: JSONObject; // JSON/B structure
+  tiers?: Record<string, unknown>; // JSON/B structure
   lockThreshold?: number;
-  createdBy?: Types.ObjectId | string;
+  createdBy?: ICreatedByAdmin;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface IFeesConfig extends Document {
-  uuid: string;
+  id: string;
   licenseType?: string;
   baseFee?: number;
-  createdBy?: Types.ObjectId | string;
+  createdBy?: ICreatedByAdmin;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
 export interface IPenaltyComputationConfig extends Document {
-  uuid: string;
+  id: string;
   env?: string;
-  rounding?: JSONObject;
-  validation?: JSONObject;
-  defaultStatus?: JSONObject;
+  rounding?: Record<string, unknown>;
+  validation?: Record<string, unknown>;
+  defaultStatus?: Record<string, unknown>;
   lockThresholdDays?: number;
   allowGracePeriod?: boolean;
   gracePeriodDays?: number;
@@ -42,9 +35,9 @@ export interface IPenaltyComputationConfig extends Document {
   logComputationDetails?: boolean;
   feesConfigId?: Types.ObjectId | string; // reference to FeesConfig
   penaltyConfigId?: Types.ObjectId | string; // reference to PenaltyConfig
-  feesConfig?: JSONObject; // embedded snapshot (jsonb)
-  penaltyConfig?: JSONObject; // embedded snapshot (jsonb)
-  createdBy?: Types.ObjectId | string;
+  feesConfig?: Record<string, unknown>; // embedded snapshot (jsonb)
+  penaltyConfig?: Record<string, unknown>; // embedded snapshot (jsonb)
+  createdBy?: ICreatedByAdmin;
   createdAt?: Date;
   updatedAt?: Date;
 }

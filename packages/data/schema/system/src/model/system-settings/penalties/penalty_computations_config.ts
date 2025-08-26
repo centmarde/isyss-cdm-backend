@@ -4,7 +4,7 @@ import { IPenaltyComputationConfig } from './interface';
 
 const PenaltyComputationConfigSchema = new Schema<IPenaltyComputationConfig>(
   {
-    uuid: { type: String, required: true, unique: true, index: true },
+    id: { type: String, required: true, unique: true, index: true },
     env: { type: String },
     rounding: { type: Schema.Types.Mixed },
     validation: { type: Schema.Types.Mixed },
@@ -22,13 +22,13 @@ const PenaltyComputationConfigSchema = new Schema<IPenaltyComputationConfig>(
     feesConfig: { type: Schema.Types.Mixed },
     penaltyConfig: { type: Schema.Types.Mixed },
 
-    createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+    createdBy: { type: Schema.Types.Mixed },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
 // Indexes
-PenaltyComputationConfigSchema.index({ uuid: 1 }, { unique: true });
+PenaltyComputationConfigSchema.index({ id: 1 }, { unique: true });
 PenaltyComputationConfigSchema.index({ env: 1 });
 PenaltyComputationConfigSchema.index({ lockThresholdDays: 1 });
 PenaltyComputationConfigSchema.index({ allowGracePeriod: 1 });

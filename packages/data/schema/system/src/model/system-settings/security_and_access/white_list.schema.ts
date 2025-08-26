@@ -4,16 +4,16 @@ import { IWhitelist, WhitelistDocument } from './interfaces';
 
 const whitelistSchema = new Schema(
 	{
-		uuid: { type: String, index: true },
+		id: { type: String, index: true },
 		type: { type: String },
 		value: { type: String },
 		label: { type: String },
 		env: { type: String },
 		expiresAt: { type: Date },
 		status: { type: String },
-		createdBy: { type: Schema.Types.ObjectId, ref: 'UserAccount' },
+		createdBy: { type: Schema.Types.Mixed },
 	},
-	{ timestamps: { createdAt: 'createDate', updatedAt: 'updateDate' } }
+	{ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
 whitelistSchema.index({ type: 1, value: 1 });

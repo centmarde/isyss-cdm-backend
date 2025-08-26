@@ -4,15 +4,15 @@ import { IRole, RoleDocument } from './interfaces';
 
 const roleSchema = new Schema(
 	{
-		uuid: { type: String, index: true },
+		id: { type: String, index: true },
 		code: { type: String, required: true, index: true },
 		displayName: { type: String },
 		description: { type: String },
 		permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission' }],
 		permissionsMeta: { type: Schema.Types.Mixed },
-		createdBy: { type: Schema.Types.ObjectId, ref: 'UserAccount' },
+		createdBy: { type: Schema.Types.Mixed },
 	},
-	{ timestamps: { createdAt: 'createDate', updatedAt: 'updateDate' } }
+	{ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
 roleSchema.index({ code: 1 }, { unique: true });

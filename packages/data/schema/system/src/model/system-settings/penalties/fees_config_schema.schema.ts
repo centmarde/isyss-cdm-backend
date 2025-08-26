@@ -4,16 +4,16 @@ import { IFeesConfig } from './interface';
 
 const FeesConfigSchema = new Schema<IFeesConfig>(
   {
-    uuid: { type: String, required: true, unique: true, index: true },
+    id: { type: String, required: true, unique: true, index: true },
     licenseType: { type: String },
     baseFee: { type: Number },
-    createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
+    createdBy: { type: Schema.Types.Mixed },
   },
   { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
 // Indexes
-FeesConfigSchema.index({ uuid: 1 }, { unique: true });
+FeesConfigSchema.index({ id: 1 }, { unique: true });
 FeesConfigSchema.index({ licenseType: 1 });
 FeesConfigSchema.index({ baseFee: 1 });
 FeesConfigSchema.index({ createdAt: 1 });

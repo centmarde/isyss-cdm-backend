@@ -4,7 +4,7 @@ import { ISecurityConfig, SecurityConfigDocument } from './interfaces';
 
 const securityConfigSchema = new Schema(
 	{
-		uuid: { type: String, index: true },
+		id: { type: String, index: true },
 		env: { type: String },
 		rateLimiting: { type: Schema.Types.Mixed },
 		mfa: { type: Schema.Types.Mixed },
@@ -13,9 +13,9 @@ const securityConfigSchema = new Schema(
 		ipControls: { type: Schema.Types.Mixed },
 		tokenPolicy: { type: Schema.Types.Mixed },
 		auditLogging: { type: Schema.Types.Mixed },
-		createdBy: { type: Schema.Types.ObjectId, ref: 'UserAccount' },
+		createdBy: { type: Schema.Types.Mixed },
 	},
-	{ timestamps: { createdAt: 'createDate', updatedAt: 'updateDate' } }
+	{ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
 securityConfigSchema.index({ env: 1 });

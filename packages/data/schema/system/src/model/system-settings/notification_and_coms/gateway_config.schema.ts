@@ -1,11 +1,26 @@
 //@ts-ignore
 import mongoose, { Schema } from 'mongoose';
-import { IGatewayConfig } from './interfaces';
+// import { IGatewayConfig } from './interfaces';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
+export interface IGatewayConfig extends Document {
+  id: string;
+  type?: string;
+  provider?: string;
+  credentials?: Record<string, unknown>;
+  rateLimit?: Record<string, unknown>;
+  failoverEnabled?: boolean;
+  fallbackProvider?: string;
+  senderName?: string;
+  status?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  createdBy?: ICreatedByAdmin;
+}
 // Schema
 export const GatewayConfigSchema = new Schema<IGatewayConfig>(
   {
-    uuid: { type: String, required: true, unique: true },
+    id: { type: String, required: true, unique: true },
     type: { type: String },
     provider: { type: String },
     credentials: { type: Schema.Types.Mixed },
@@ -14,25 +29,28 @@ export const GatewayConfigSchema = new Schema<IGatewayConfig>(
     fallbackProvider: { type: String },
     senderName: { type: String },
     status: { type: String },
-    createDate: { type: Date, default: () => new Date() },
-    updateDate: { type: Date, default: () => new Date() },
+    createdAt: { type: Date, default: () => new Date() },
+    updatedAt: { type: Date, default: () => new Date() },
     createdBy: { type: Schema.Types.Mixed },
   },
-  { collection: 'gatewayConfig' }
+  { 
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+    collection: 'gatewayConfig' 
+  }
 );
 
 // Indexes
-GatewayConfigSchema.index({ uuid: 1 }, { unique: true });
+GatewayConfigSchema.index({ id: 1 }, { unique: true });
 GatewayConfigSchema.index({ type: 1 });
 GatewayConfigSchema.index({ provider: 1 });
 GatewayConfigSchema.index({ status: 1 });
-GatewayConfigSchema.index({ createDate: 1 });
+GatewayConfigSchema.index({ createdAt: 1 });
 GatewayConfigSchema.index({ type: 1, provider: 1 });
 GatewayConfigSchema.index({ provider: 1, status: 1 });
 
 // Hooks
 GatewayConfigSchema.pre('save', function (this: IGatewayConfig, next: (err?: any) => void) {
-  this.updateDate = new Date();
+  this.updatedAt = new Date();
   next();
 });
 
@@ -42,3 +60,4 @@ export const GatewayConfigModel =
   mongoose.model<IGatewayConfig>('GatewayConfig', GatewayConfigSchema);
 
 export default GatewayConfigModel;
+export const IGatewayConfigStub = null as unknown as IGatewayConfig;

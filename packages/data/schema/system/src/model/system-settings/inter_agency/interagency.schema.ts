@@ -1,11 +1,27 @@
 // @ts-ignore
 import { Schema, model } from 'mongoose';
 import { IInteragencyConfig } from './interface';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
+
+export interface IInteragencyConfig extends Document {
+    id: string;
+    agencyCode?: string;
+    agencyName?: string;
+    description?: string;
+    integrationSettings?: Record<string, unknown>;
+    accessControl?: Record<string, unknown>;
+    workflowParticipation?: Record<string, unknown>;
+    logging?: Record<string, unknown>;
+    status?: string;
+    lastSynced?: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
+    createdBy?: ICreatedByAdmin;
+}
 
 const InteragencySchema = new Schema<IInteragencyConfig>(
     {
-        id: { type: Number, required: false, sparse: true, index: true },
-        uuid: { type: String, required: true, unique: true, index: true },
+        id: { type: String, required: true, unique: true, index: true },
         agencyCode: { type: String, trim: true, index: true },
         agencyName: { type: String, trim: true },
         description: { type: String },
@@ -18,7 +34,7 @@ const InteragencySchema = new Schema<IInteragencyConfig>(
         createdBy: { type: Schema.Types.Mixed },
     },
     {
-        timestamps: { createdAt: 'createDate', updatedAt: 'updateDate' },
+        timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
         collection: 'interagencyConfig',
     }
 );
@@ -27,7 +43,7 @@ const InteragencySchema = new Schema<IInteragencyConfig>(
 InteragencySchema.index({ agencyCode: 1 }, { unique: true, sparse: true });
 InteragencySchema.index({ status: 1 });
 InteragencySchema.index({ lastSynced: 1 });
-InteragencySchema.index({ createDate: 1 });
+InteragencySchema.index({ createdAt: 1 });
 InteragencySchema.index({ agencyName: 1 });
 InteragencySchema.index({ status: 1, agencyCode: 1 });
 

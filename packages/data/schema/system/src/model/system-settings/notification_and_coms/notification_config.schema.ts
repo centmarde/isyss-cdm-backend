@@ -1,11 +1,26 @@
 //@ts-ignore
 import mongoose, { Schema } from 'mongoose';
-import { INotificationConfig } from './interfaces';
+//import { INotificationConfig } from './interfaces';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
+export interface INotificationConfig extends Document {
+  id: string;
+  templateKey?: string;
+  title?: string;
+  description?: string;
+  channelSettings?: Record<string, unknown>;
+  trigger?: Record<string, unknown>;
+  userPreferenceOverride?: boolean;
+  placeholders?: string;
+  status?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  createdBy?: ICreatedByAdmin;
+}
 // Schema
 export const NotificationConfigSchema = new Schema<INotificationConfig>(
   {
-    uuid: { type: String, required: true, unique: true },
+    id: { type: String, required: true, unique: true },
     templateKey: { type: String },
     title: { type: String },
     description: { type: String },
@@ -14,23 +29,26 @@ export const NotificationConfigSchema = new Schema<INotificationConfig>(
     userPreferenceOverride: { type: Boolean, default: false },
     placeholders: { type: String },
     status: { type: String },
-    createDate: { type: Date, default: () => new Date() },
-    updateDate: { type: Date, default: () => new Date() },
+    createdAt: { type: Date, default: () => new Date() },
+    updatedAt: { type: Date, default: () => new Date() },
     createdBy: { type: Schema.Types.Mixed },
   },
-  { collection: 'notificationConfig' }
+  { 
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' },
+    collection: 'notificationConfig' 
+  }
 );
 
 // Indexes
-NotificationConfigSchema.index({ uuid: 1 }, { unique: true });
+NotificationConfigSchema.index({ id: 1 }, { unique: true });
 NotificationConfigSchema.index({ templateKey: 1 });
 NotificationConfigSchema.index({ status: 1 });
-NotificationConfigSchema.index({ createDate: 1 });
+NotificationConfigSchema.index({ createdAt: 1 });
 NotificationConfigSchema.index({ templateKey: 1, status: 1 });
 
 // Hooks
 NotificationConfigSchema.pre('save', function (this: INotificationConfig, next: (err?: any) => void) {
-  this.updateDate = new Date();
+  this.updatedAt = new Date();
   next();
 });
 
@@ -40,3 +58,4 @@ export const NotificationConfigModel =
   mongoose.model<INotificationConfig>('NotificationConfig', NotificationConfigSchema);
 
 export default NotificationConfigModel;
+export const INotificationConfigStub = null as unknown as INotificationConfig;

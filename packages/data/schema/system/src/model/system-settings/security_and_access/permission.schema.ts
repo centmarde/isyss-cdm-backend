@@ -4,16 +4,16 @@ import { IPermission, PermissionDocument } from './interfaces';
 
 const permissionSchema = new Schema(
 	{
-		uuid: { type: String, index: true },
+		id: { type: String, index: true },
 		module: { type: String },
 		baseUrl: { type: String },
 		endpoint: { type: String },
 		method: { type: String },
 		permission: { type: String, index: true },
 		description: { type: String },
-		createdBy: { type: Schema.Types.ObjectId, ref: 'UserAccount' },
+		createdBy: { type: Schema.Types.Mixed },
 	},
-	{ timestamps: { createdAt: 'createDate', updatedAt: 'updateDate' } }
+	{ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } }
 );
 
 permissionSchema.index({ module: 1, endpoint: 1, method: 1 });

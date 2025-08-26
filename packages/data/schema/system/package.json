@@ -24,7 +24,8 @@
   "license": "MIT",
   "dependencies": {
     "mongoose": "^8.17.1",
-    "@isyss-cdm/enum": "workspace:*"
+    "@isyss-cdm/enum": "workspace:*",
+    "@isyss-cdm/interface": "workspace:*"
   },
   "devDependencies": {
     "eslint": "^8.0.0",

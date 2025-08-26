@@ -1,40 +1,33 @@
 //@ts-ignore
 import { Document } from 'mongoose';
-
-// Concrete JSON types for TypeScript usage (no `any`, `unknown`, or explicit `undefined`)
-export type JSONPrimitive = string | number | boolean | null;
-export type JSONValue = JSONPrimitive | JSONObject | JSONArray;
-export interface JSONObject {
-    [key: string]: JSONValue;
-}
-export interface JSONArray extends Array<JSONValue> {}
+import { ICreatedByAdmin } from '../file_and_storage/interface';
 
 export interface IModuleToggleConfig extends Document {
-	uuid?: string;
+	id?: string;
 	env?: string;
 	agencyCode?: string;
-	modules?: JSONObject; // jsonb: list or map of module toggles
-	createDate?: Date;
-	updateDate?: Date;
-	createdBy?: JSONObject;
+	modules?: Record<string, unknown>; // jsonb: list or map of module toggles
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
 }
 
 export interface IDataRetentionConfig extends Document {
-	uuid?: string;
+	id?: string;
 	logRetentionDays?: number;
 	autoArchiveEnabled?: boolean;
 	archiveStoragePath?: string;
 	notificationsEnabled?: boolean;
-	createDate?: Date;
-	updateDate?: Date;
-	createdBy?: JSONObject;
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
 }
 
 export interface IMaintenanceConfig extends Document {
-	uuid?: string;
-	maintenanceMode?: JSONValue; // could be boolean or object describing mode
-	affectedModules?: JSONArray; // jsonb list
-	createDate?: Date;
-	updateDate?: Date;
-	createdBy?: JSONObject;
+	id?: string;
+	maintenanceMode?: Record<string, unknown>; // could be boolean or object describing mode
+	affectedModules?: Array<Record<string, unknown>>; // jsonb list
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
 }
