@@ -1,6 +1,20 @@
 //@ts-ignore
 import mongoose, { Model, Schema } from 'mongoose';
-import { IWhitelist, WhitelistDocument } from './interfaces';
+//import { IWhitelist, WhitelistDocument } from './interfaces';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
+
+export interface IWhitelist {
+	id?: string;
+	type?: string;
+	value?: string;
+	label?: string;
+	env?: string;
+	expiresAt?: Date;
+	status?: string;
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
+}
 
 const whitelistSchema = new Schema(
 	{
@@ -25,6 +39,6 @@ whitelistSchema.index({ type: 1, env: 1 });
 export const Whitelist: Model<WhitelistDocument> =
 	(mongoose.models.Whitelist as Model<WhitelistDocument>) ||
 	mongoose.model<WhitelistDocument>('Whitelist', whitelistSchema);
-
-export { IWhitelist, WhitelistDocument };
+export type WhitelistDocument = IWhitelist & Document;
+//export { IWhitelist, WhitelistDocument };
 export default Whitelist;

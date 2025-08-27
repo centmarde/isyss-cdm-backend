@@ -1,6 +1,20 @@
 //@ts-ignore
 import mongoose, { Model, Schema } from 'mongoose';
-import { IPermission, PermissionDocument } from './interfaces';
+//import { IPermission, PermissionDocument } from './interfaces';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
+
+export interface IPermission {
+	id?: string;
+	module?: string;
+	baseUrl?: string;
+	endpoint?: string;
+	method?: string;
+	permission?: string;
+	description?: string;
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
+}
 
 const permissionSchema = new Schema(
 	{
@@ -18,9 +32,10 @@ const permissionSchema = new Schema(
 
 permissionSchema.index({ module: 1, endpoint: 1, method: 1 });
 
+export type PermissionDocument = IPermission & Document;
 export const Permission: Model<PermissionDocument> =
 	(mongoose.models.Permission as Model<PermissionDocument>) ||
 	mongoose.model<PermissionDocument>('Permission', permissionSchema);
 
-export { IPermission, PermissionDocument };
+//export { IPermission, PermissionDocument };
 export default Permission;
