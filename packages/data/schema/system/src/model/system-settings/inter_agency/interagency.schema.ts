@@ -5,18 +5,18 @@ import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IInteragencyConfig extends Document {
     id: string;
-    agencyCode?: string;
-    agencyName?: string;
-    description?: string;
-    integrationSettings?: Record<string, unknown>;
-    accessControl?: Record<string, unknown>;
-    workflowParticipation?: Record<string, unknown>;
-    logging?: Record<string, unknown>;
-    status?: string;
-    lastSynced?: Date;
-    createdAt?: Date;
-    updatedAt?: Date;
-    createdBy?: ICreatedByAdmin;
+    agencyCode: string;
+    agencyName: string;
+    description: string;
+    integrationSettings: Record<string, unknown>;
+    accessControl: Record<string, unknown>;
+    workflowParticipation: Record<string, unknown>;
+    logging: Record<string, unknown>;
+    status: string;
+    lastSynced: Date;
+    createdAt: Date;
+    updatedAt: Date;
+    createdBy: ICreatedByAdmin;
 }
 
 const InteragencySchema = new Schema<IInteragencyConfig>(

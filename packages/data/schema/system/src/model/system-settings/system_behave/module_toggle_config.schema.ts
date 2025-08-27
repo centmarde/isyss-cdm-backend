@@ -4,13 +4,13 @@ import mongoose, { Schema } from 'mongoose';
 import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IModuleToggleConfig extends Document {
-	id?: string;
-	env?: string;
-	agencyCode?: string;
-	modules?: Record<string, unknown>; // jsonb: list or map of module toggles
-	createdAt?: Date;
-	updatedAt?: Date;
-	createdBy?: ICreatedByAdmin;
+	id: string;
+	env: string;
+	agencyCode: string;
+	modules: Record<string, unknown>; // jsonb: list or map of module toggles
+	createdAt: Date;
+	updatedAt: Date;
+	createdBy: ICreatedByAdmin;
 }
 
 

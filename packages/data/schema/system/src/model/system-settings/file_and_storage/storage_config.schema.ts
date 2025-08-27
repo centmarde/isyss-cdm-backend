@@ -15,7 +15,7 @@ export interface IStorageConfig extends Document {
     updatedAt?: Date;
     createdBy?: ICreatedByAdmin;
     // additional free-form JSON for provider specific config
-    config?: Record<string, unknown>;
+   // config?: Record<string, unknown>;
 }
 
 const StorageConfigSchema = new Schema<IStorageConfig>(
@@ -29,7 +29,7 @@ const StorageConfigSchema = new Schema<IStorageConfig>(
         expirationDays: { type: Number },
         publicAccess: { type: Boolean, default: false },
         createdBy: { type: Schema.Types.Mixed, default: {} },
-        config: { type: Schema.Types.Mixed, default: {} },
+       // config: { type: Schema.Types.Mixed, default: {} },
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
     },

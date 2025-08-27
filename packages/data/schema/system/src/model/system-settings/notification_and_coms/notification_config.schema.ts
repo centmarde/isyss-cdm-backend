@@ -5,17 +5,17 @@ import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface INotificationConfig extends Document {
   id: string;
-  templateKey?: string;
-  title?: string;
-  description?: string;
-  channelSettings?: Record<string, unknown>;
-  trigger?: Record<string, unknown>;
-  userPreferenceOverride?: boolean;
-  placeholders?: string;
-  status?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  createdBy?: ICreatedByAdmin;
+  templateKey: string;
+  title: string;
+  description: string;
+  channelSettings: Record<string, unknown>;
+  trigger: Record<string, unknown>;
+  userPreferenceOverride: boolean;
+  placeholders: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: ICreatedByAdmin;
 }
 // Schema
 export const NotificationConfigSchema = new Schema<INotificationConfig>(

@@ -5,11 +5,11 @@ import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IFeesConfig extends Document {
   id: string;
-  licenseType?: string;
-  baseFee?: number;
-  createdBy?: ICreatedByAdmin;
-  createdAt?: Date;
-  updatedAt?: Date;
+  licenseType: string;
+  baseFee: number;
+  createdBy: ICreatedByAdmin;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const FeesConfigSchema = new Schema<IFeesConfig>(

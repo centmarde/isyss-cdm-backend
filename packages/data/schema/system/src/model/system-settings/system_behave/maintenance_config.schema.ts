@@ -5,12 +5,12 @@ import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 
 export interface IMaintenanceConfig extends Document {
-	id?: string;
-	maintenanceMode?: Record<string, unknown>; // could be boolean or object describing mode
-	affectedModules?: Array<Record<string, unknown>>; // jsonb list
-	createdAt?: Date;
-	updatedAt?: Date;
-	createdBy?: ICreatedByAdmin;
+	id: string;
+	maintenanceMode: Record<string, unknown>; // could be boolean or object describing mode
+	affectedModules: Array<Record<string, unknown>>; // jsonb list
+	createdAt: Date;
+	updatedAt: Date;
+	createdBy: ICreatedByAdmin;
 }
 
 

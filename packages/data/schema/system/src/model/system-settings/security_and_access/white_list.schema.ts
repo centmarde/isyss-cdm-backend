@@ -4,16 +4,16 @@ import mongoose, { Model, Schema } from 'mongoose';
 import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IWhitelist {
-	id?: string;
-	type?: string;
-	value?: string;
-	label?: string;
-	env?: string;
-	expiresAt?: Date;
-	status?: string;
-	createdAt?: Date;
-	updatedAt?: Date;
-	createdBy?: ICreatedByAdmin;
+	id: string;
+	type: string;
+	value: string;
+	label: string;
+	env: string;
+	expiresAt: Date;
+	status: string;
+	createdAt: Date;
+	updatedAt: Date;
+	createdBy: ICreatedByAdmin;
 }
 
 const whitelistSchema = new Schema(

@@ -6,12 +6,12 @@ import { ICreatedByAdmin } from '@isyss-cdm/interface';
 // Interfaces
 export interface IPenaltyConfig extends Document {
   id: string;
-  licenseType?: string;
-  tiers?: Record<string, unknown>;
-  lockThreshold?: number;
-  createdBy?: ICreatedByAdmin;
-  createdAt?: Date;
-  updatedAt?: Date;
+  licenseType: string;
+  tiers: Record<string, unknown>;
+  lockThreshold: number;
+  createdBy: ICreatedByAdmin;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PenaltyConfigSchema = new Schema<IPenaltyConfig>(

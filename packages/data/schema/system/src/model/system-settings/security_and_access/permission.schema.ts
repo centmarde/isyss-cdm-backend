@@ -4,16 +4,16 @@ import mongoose, { Model, Schema } from 'mongoose';
 import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IPermission {
-	id?: string;
-	module?: string;
-	baseUrl?: string;
-	endpoint?: string;
-	method?: string;
-	permission?: string;
-	description?: string;
-	createdAt?: Date;
-	updatedAt?: Date;
-	createdBy?: ICreatedByAdmin;
+	id: string;
+	module: string;
+	baseUrl: string;
+	endpoint: string;
+	method: string;
+	permission: string;
+	description: string;
+	createdAt: Date;
+	updatedAt: Date;
+	createdBy: ICreatedByAdmin;
 }
 
 const permissionSchema = new Schema(

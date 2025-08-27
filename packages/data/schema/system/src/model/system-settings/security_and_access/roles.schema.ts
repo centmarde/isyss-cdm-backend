@@ -4,15 +4,16 @@ import mongoose, { Model, Schema } from 'mongoose';
 import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IRole {
-	id?: string;
+	id: string;
 	code: string;
-	displayName?: string;
-	description?: string;
-	createdAt?: Date;
-	updatedAt?: Date;
-	permissions?: mongoose.Types.ObjectId[]; // references to Permission docs
-	permissionsMeta?: Record<string, unknown>; // jsonb-like metadata
-	createdBy?: ICreatedByAdmin;
+	displayName: string;
+	description: string;
+	createdAt: Date;
+	updatedAt: Date;
+	//permissions?: mongoose.Types.ObjectId[]; // references to Permission docs
+	permissions: Record<string, unknown>;
+	permissionsMeta: Record<string, unknown>; // jsonb-like metadata
+	createdBy: ICreatedByAdmin;
 }
 
 const roleSchema = new Schema(
@@ -21,7 +22,8 @@ const roleSchema = new Schema(
 		code: { type: String, required: true, index: true },
 		displayName: { type: String },
 		description: { type: String },
-		permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission' }],
+		//permissions: [{ type: Schema.Types.ObjectId, ref: 'Permission' }],
+		permissions: { type: Schema.Types.Mixed },
 		permissionsMeta: { type: Schema.Types.Mixed },
 		createdBy: { type: Schema.Types.Mixed },
 	},

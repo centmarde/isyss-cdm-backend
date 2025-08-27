@@ -5,17 +5,17 @@ import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IGatewayConfig extends Document {
   id: string;
-  type?: string;
-  provider?: string;
-  credentials?: Record<string, unknown>;
-  rateLimit?: Record<string, unknown>;
-  failoverEnabled?: boolean;
-  fallbackProvider?: string;
-  senderName?: string;
-  status?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  createdBy?: ICreatedByAdmin;
+  type: string;
+  provider: string;
+  credentials: Record<string, unknown>;
+  rateLimit: Record<string, unknown>;
+  failoverEnabled: boolean;
+  fallbackProvider: string;
+  senderName: string;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  createdBy: ICreatedByAdmin;
 }
 // Schema
 export const GatewayConfigSchema = new Schema<IGatewayConfig>(

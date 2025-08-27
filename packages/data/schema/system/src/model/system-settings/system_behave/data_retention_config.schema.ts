@@ -4,14 +4,14 @@ import mongoose, { Schema } from 'mongoose';
 import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface IDataRetentionConfig extends Document {
-	id?: string;
-	logRetentionDays?: number;
-	autoArchiveEnabled?: boolean;
-	archiveStoragePath?: string;
-	notificationsEnabled?: boolean;
-	createdAt?: Date;
-	updatedAt?: Date;
-	createdBy?: ICreatedByAdmin;
+	id: string;
+	logRetentionDays: Record<string, unknown>;
+	autoArchiveEnabled: boolean;
+	archiveStoragePath: string;
+	notificationsEnabled: boolean;
+	createdAt: Date;
+	updatedAt: Date;
+	createdBy: ICreatedByAdmin;
 }
 
 
@@ -23,7 +23,7 @@ const baseFields = {
 const DataRetentionConfigSchema = new Schema<IDataRetentionConfig>(
 	{
 		...baseFields,
-		logRetentionDays: { type: Number },
+		logRetentionDays: { type: Schema.Types.Mixed },
 		autoArchiveEnabled: { type: Boolean },
 		archiveStoragePath: { type: String },
 		notificationsEnabled: { type: Boolean },

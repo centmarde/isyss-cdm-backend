@@ -1,3 +1,4 @@
+//@ts-ignore
 import mongoose, { Schema, Document } from 'mongoose';
 import { ICreatedByAdmin } from '@isyss-cdm/interface';
 import { randomUUID } from 'crypto';
@@ -10,17 +11,17 @@ export interface IFileConfig extends Document {
     templateType: string;
     templateEngine: string;
     templateSource: boolean;
-    placeholders?: Record<string, unknown>;
-    outputConfig?: Record<string, unknown>;
-    accessControl?: Record<string, unknown>;
-    checklist?: Array<Record<string, unknown>>;
-    approvers?: Array<Record<string, unknown>>;
-    status?: string;
-    details?: Record<string, unknown>;
-    createdAt?: Date;
-    updatedAt?: Date;
-    createdBy?: ICreatedByAdmin;
-    
+    placeholders: Record<string, unknown>;
+    outputConfig: Record<string, unknown>;
+    accessControl: Record<string, unknown>;
+    checklist: Array<Record<string, unknown>>;
+    approvers: Array<Record<string, unknown>>;
+    status: string;
+    details: Record<string, unknown>;
+    createdAt: Date;
+    updatedAt: Date;
+    createdBy: ICreatedByAdmin;
+
 }
 
 const FileConfigSchema = new Schema<IFileConfig>(
@@ -35,8 +36,8 @@ const FileConfigSchema = new Schema<IFileConfig>(
         placeholders: { type: Schema.Types.Mixed, default: {} },
         outputConfig: { type: Schema.Types.Mixed, default: {} },
         accessControl: { type: Schema.Types.Mixed, default: {} },
-        checklist: { type: [Schema.Types.Mixed], default: [] },
-        approvers: { type: [Schema.Types.Mixed], default: [] },
+        checklist: { type: [Schema.Types.Mixed] as any, default: [] },
+        approvers: { type: [Schema.Types.Mixed] as any, default: [] },
         status: { type: String, trim: true },
         details: { type: Schema.Types.Mixed, default: {} },
         createdBy: { type: Schema.Types.Mixed, default: {} },

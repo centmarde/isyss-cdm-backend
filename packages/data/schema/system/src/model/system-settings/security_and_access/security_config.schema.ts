@@ -4,18 +4,18 @@ import mongoose, { Model, Schema } from 'mongoose';
 import { ICreatedByAdmin } from '@isyss-cdm/interface';
 
 export interface ISecurityConfig {
-	id?: string;
-	env?: string;
-	rateLimiting?: Record<string, unknown>;
-	mfa?: Record<string, unknown>;
-	passwordPolicy?: Record<string, unknown>;
-	rbac?: Record<string, unknown>;
-	ipControls?: Record<string, unknown>;
-	tokenPolicy?: Record<string, unknown>;
-	auditLogging?: Record<string, unknown>;
-	createdAt?: Date;
-	updatedAt?: Date;
-	createdBy?: ICreatedByAdmin;
+	id: string;
+	env: string;
+	rateLimiting: Record<string, unknown>;
+	mfa: Record<string, unknown>;
+	passwordPolicy: Record<string, unknown>;
+	rbac: Record<string, unknown>;
+	ipControls: Record<string, unknown>;
+	tokenPolicy: Record<string, unknown>;
+	auditLogging: Record<string, unknown>;
+	createdAt: Date;
+	updatedAt: Date;
+	createdBy: ICreatedByAdmin;
 }
 
 

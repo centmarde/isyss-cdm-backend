@@ -7,21 +7,21 @@ import { IPenaltyConfig } from './penalty_config.schema';
 
 export interface IPenaltyComputationConfig extends Document {
   id: string;
-  env?: string;
-  rounding?: Record<string, unknown>;
-  validation?: Record<string, unknown>;
-  defaultStatus?: Record<string, unknown>;
-  lockThresholdDays?: number;
-  allowGracePeriod?: boolean;
-  gracePeriodDays?: number;
-  fallbackPenaltyRate?: number;
-  auditTrailEnabled?: boolean;
-  logComputationDetails?: boolean;
-  feesConfig?: IFeesConfig; 
-  penaltyConfig?: IPenaltyConfig; 
-  createdBy?: ICreatedByAdmin;
-  createdAt?: Date;
-  updatedAt?: Date;
+  env: string;
+  rounding: Record<string, unknown>;
+  validation: Record<string, unknown>;
+  defaultStatus: Record<string, unknown>;
+  lockThresholdDays: number;
+  allowGracePeriod: boolean;
+  gracePeriodDays: number;
+  fallbackPenaltyRate: number;
+  auditTrailEnabled: boolean;
+  logComputationDetails: boolean;
+  feesConfig: IFeesConfig;
+  penaltyConfig: IPenaltyConfig;
+  createdBy: ICreatedByAdmin;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PenaltyComputationConfigSchema = new Schema<IPenaltyComputationConfig>(
