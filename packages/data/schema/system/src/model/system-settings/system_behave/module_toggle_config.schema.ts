@@ -1,6 +1,18 @@
 //@ts-ignore
 import mongoose, { Schema } from 'mongoose';
-import { IModuleToggleConfig } from './interfaces';
+//import { IModuleToggleConfig } from './interfaces';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
+
+export interface IModuleToggleConfig extends Document {
+	id?: string;
+	env?: string;
+	agencyCode?: string;
+	modules?: Record<string, unknown>; // jsonb: list or map of module toggles
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
+}
+
 
 const baseFields = {
 	id: { type: String, index: true },
@@ -29,5 +41,5 @@ export const ModuleToggleConfigModel =
 	(mongoose.models.ModuleToggleConfig as mongoose.Model<IModuleToggleConfig>) ||
 	mongoose.model<IModuleToggleConfig>('ModuleToggleConfig', ModuleToggleConfigSchema);
 
-export { IModuleToggleConfig };
+//export { IModuleToggleConfig };
 export default ModuleToggleConfigModel;

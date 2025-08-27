@@ -1,6 +1,19 @@
 //@ts-ignore
 import mongoose, { Schema } from 'mongoose';
-import { IDataRetentionConfig } from './interfaces';
+//import { IDataRetentionConfig } from './interfaces';
+import { ICreatedByAdmin } from '@isyss-cdm/interface';
+
+export interface IDataRetentionConfig extends Document {
+	id?: string;
+	logRetentionDays?: number;
+	autoArchiveEnabled?: boolean;
+	archiveStoragePath?: string;
+	notificationsEnabled?: boolean;
+	createdAt?: Date;
+	updatedAt?: Date;
+	createdBy?: ICreatedByAdmin;
+}
+
 
 const baseFields = {
 	id: { type: String, index: true },
@@ -30,5 +43,5 @@ export const DataRetentionConfigModel =
 	(mongoose.models.DataRetentionConfig as mongoose.Model<IDataRetentionConfig>) ||
 	mongoose.model<IDataRetentionConfig>('DataRetentionConfig', DataRetentionConfigSchema);
 
-export { IDataRetentionConfig };
+//export { IDataRetentionConfig };
 export default DataRetentionConfigModel;
