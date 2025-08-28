@@ -3,5 +3,5 @@
  */
 
 export * from "./model/activity.schema";
-export * from "./model/system-settings/file_and_storage/file_config.schema";
-export * from "./model/system-settings/file_and_storage/storage_config.schema";
+export * from "./model/system-settings/file-and-storage/file_config.schema";
+export * from "./model/system-settings/file-and-storage/storage_config.schema";
